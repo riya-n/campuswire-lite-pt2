@@ -112,6 +112,11 @@ export const PageBody = s.div`
   height: 100%;
 `;
 
+export const DisabledPageBody = s(PageBody)`
+  pointer-events: none;
+  opacity: 0.5;
+`;
+
 export const PageContainer = s.div`
   background-color: rgb(40, 48, 51, 0.05);
   height: 100%;

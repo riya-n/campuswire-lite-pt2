@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import {
-  SubHeading, PageHeader, PageBody, PageContainer, BodyTextLink, BodyText,
+  SubHeading, PageHeader, PageBody, PageContainer, BodyTextLink, BodyText, DisabledPageBody,
 } from '../styles';
 import QuestionList from './QuestionList';
 import Question from './Question';
@@ -57,17 +57,32 @@ const HomePage = () => {
         <BodyTextLink onClick={() => logout()}>{loggedIn ? 'Log Out' : ''}</BodyTextLink>
       </PageHeader>
       {
-        popUp ? <AddQuestion setPopUp={setPopUp} /> : <></>
+        popUp ? (
+          <>
+            <AddQuestion setPopUp={setPopUp} />
+            {' '}
+            <DisabledPageBody>
+              <QuestionList
+                questions={questions}
+                setCurrQuestion={setCurrQuestion}
+                setPopUp={setPopUp}
+                isLoggedIn={isLoggedIn}
+              />
+              <Question question={currQuestion} isLoggedIn={isLoggedIn} />
+            </DisabledPageBody>
+          </>
+        ) : (
+          <PageBody>
+            <QuestionList
+              questions={questions}
+              setCurrQuestion={setCurrQuestion}
+              setPopUp={setPopUp}
+              isLoggedIn={isLoggedIn}
+            />
+            <Question question={currQuestion} isLoggedIn={isLoggedIn} />
+          </PageBody>
+        )
       }
-      <PageBody>
-        <QuestionList
-          questions={questions}
-          setCurrQuestion={setCurrQuestion}
-          setPopUp={setPopUp}
-          isLoggedIn={isLoggedIn}
-        />
-        <Question question={currQuestion} isLoggedIn={isLoggedIn} />
-      </PageBody>
     </PageContainer>
   );
 };
